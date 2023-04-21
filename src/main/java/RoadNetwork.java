@@ -25,11 +25,25 @@ public class RoadNetwork {
         this.roadLines = roadLines;
     }
 
-    @Override
-    public String toString() {
-        return "RoadNetwork{" +
-                "name='" + name + '\'' +
-                ", lines=" + roadLines +
-                '}';
+    public Station searchStationByName(String stationName) {
+        for (RoadLine line : roadLines) {
+            Station station = line.getStationByName(stationName);
+            if (station != null) return station;
+        }
+
+        return null;
+    }
+
+    public void displayRoadNetworkInfo() {
+        System.out.println("Road Network name: " + this.getName());
+
+        System.out.println("Lines");
+        this.getLines().forEach(line -> {
+            System.out.println("\nLine name: " + line.getName());
+
+            System.out.println("Stations");
+            line.getStations().forEach(station -> System.out.println(station.toString()));
+        });
+
     }
 }

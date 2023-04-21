@@ -25,11 +25,17 @@ public class RoadLine {
         this.stations = stations;
     }
 
-    @Override
-    public String toString() {
-        return "Line{" +
-                "name='" + name + '\'' +
-                ", stations=" + stations +
-                '}';
+    public Station getStationByName(String stationName) {
+        for (Station station : stations) {
+            if (station.getName().equals(stationName))
+                return station;
+        }
+
+        return null;
+    }
+
+    public void setRoadLineForStations() {
+        for (Station station : stations)
+            station.setRoadLine(this);
     }
 }
