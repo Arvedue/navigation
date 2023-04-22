@@ -10,14 +10,15 @@ public class BFS {
     private int distance;
 
     public BFS() {
-        queue = new LinkedList<>();
-        visited = new HashMap<>();
-        predecessors = new HashMap<>();
-        distances = new HashMap<>();
-        distance = 0;
+        this.queue = new LinkedList<>();
+        this.visited = new HashMap<>();
+        this.predecessors = new HashMap<>();
+        this.distances = new HashMap<>();
+        this.distance = 0;
     }
 
-    public List<Station> findShortestPath(HashMap<Station, ArrayList<Station>> adjacencyList, Station start, Station destination) {
+    public List<Station> findShortestPath(HashMap<Station, ArrayList<Station>> adjacencyList,
+                                          Station start, Station destination) {
         queue.offer(start);
         visited.put(start, true);
         predecessors.put(start, null);
@@ -28,6 +29,7 @@ public class BFS {
             if (currentStation.equals(destination)) break;
 
             int currentDistance = distances.get(currentStation);
+
             for (Station neighbourStation : adjacencyList.get(currentStation)) {
                 if (!visited.containsKey(neighbourStation)) {
                     queue.offer(neighbourStation);
@@ -50,7 +52,31 @@ public class BFS {
 
         distance = distances.get(destination);
         Collections.reverse(path);
+
+        controlChangesBetweenLines(path);
+
         return path;
+    }
+
+    private void controlChangesBetweenLines(List<Station> path) {
+        if (path.size() == 2 && path.get(1).isCommonStation()) {
+            path.get(1).setChangedDirection(path.get(0).getRoadLine());
+            return;
+        }
+
+        for (int i = 1; i < path.size() - 1; i++) {
+            Station previousStation = path.get(i - 1);
+            Station nextStation = path.get(i + 1);
+            Station current = path.get(i);
+
+            if (current.isCommonStation()) {
+                current.setChangedDirection(nextStation.getRoadLine());
+
+                if (!(previousStation.getRoadLine().equals(nextStation.getRoadLine()))) {
+                    current.setDirectionChanged(true);
+                }
+            }
+        }
     }
 
     public int getDistance() {

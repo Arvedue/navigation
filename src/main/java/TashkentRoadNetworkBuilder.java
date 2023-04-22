@@ -8,33 +8,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TashkentRoadNetwork {
+public class TashkentRoadNetworkBuilder {
     private final Reader textFileReader;
-    private static int id;
 
-    public TashkentRoadNetwork() {
-        id = 0;
+    public TashkentRoadNetworkBuilder() {
         textFileReader = new TextFileReader();
     }
 
     public RoadNetwork createRoadNetwork() {
-        List<RoadLine> roadLines = getRoadLine();
+        List<RoadLine> roadLines = getRoadLines();
         return new RoadNetwork("Tashkent", roadLines);
     }
 
-    public List<RoadLine> getRoadLine() {
+    public List<RoadLine> getRoadLines() {
         List<RoadLine> roadLines = new ArrayList<>();
         HashMap<String, Station> allStations = new HashMap<>();
         List<Station> chilonzorStations = getRoadLineStations("ChilonzorLine.txt", allStations);
         List<Station> uzbekistanStations = getRoadLineStations("UzbekistanLine.txt", allStations);
         List<Station> yunusobodStations = getRoadLineStations("YunusobodLine.txt", allStations);
 
-        RoadLine chilonzorRoadLine = new RoadLine("Chilonzor", chilonzorStations);
-        RoadLine uzbekistanRoadLine = new RoadLine("Uzbekistan", uzbekistanStations);
         RoadLine yunusobodRoadLine = new RoadLine("Yunusobod", yunusobodStations);
+        RoadLine uzbekistanRoadLine = new RoadLine("Uzbekistan", uzbekistanStations);
+        RoadLine chilonzorRoadLine = new RoadLine("Chilonzor", chilonzorStations);
 
-        chilonzorRoadLine.setRoadLineForStations();
         uzbekistanRoadLine.setRoadLineForStations();
+        chilonzorRoadLine.setRoadLineForStations();
         yunusobodRoadLine.setRoadLineForStations();
 
         roadLines.add(chilonzorRoadLine);
@@ -49,10 +47,12 @@ public class TashkentRoadNetwork {
         List<String> data = textFileReader.read(pathname);
 
         for (String line : data) {
-            if (allStations.containsKey(line))
+            if (allStations.containsKey(line)) {
                 stations.add(allStations.get(line));
+                allStations.get(line).setCommonStation(true);
+            }
             else {
-                Station station = new Station(id++, line);
+                Station station = new Station(line);
                 allStations.put(line, station);
                 stations.add(station);
             }

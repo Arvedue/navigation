@@ -9,10 +9,8 @@ import java.util.Map;
 
 public class AdjacencyListGraphRepresentation {
 
-    private static HashMap<Station, ArrayList<Station>> adjacencyList;
-
     public static HashMap<Station, ArrayList<Station>> constructGraphRepresentation(RoadNetwork roadNetwork) {
-        adjacencyList = new HashMap<>();
+        HashMap<Station, ArrayList<Station>> adjacencyList = new HashMap<>();
         List<RoadLine> roadLines = roadNetwork.getLines();
 
         for (RoadLine roadLine : roadLines) {
@@ -34,8 +32,9 @@ public class AdjacencyListGraphRepresentation {
         return adjacencyList;
     }
 
-    public static void displayAdjacencyListGraphRepresentation() {
+    public static void displayAdjacencyListGraphRepresentation(HashMap<Station, ArrayList<Station>> adjacencyList) {
         System.out.println("AdjacencyList Representation of a Graph");
+
         int i = 0;
         for (Map.Entry<Station, ArrayList<Station>> entry : adjacencyList.entrySet()) {
             System.out.print(i++ + "\t" + entry.getKey().getName() + " -> (");

@@ -44,6 +44,7 @@ public class RoadNetwork {
             System.out.println("\nLine name: " + line.getName());
 
             System.out.println("Stations");
+            System.out.println("----------------------------");
             line.getStations().forEach(station -> System.out.println(station.getName() +
                     "\t(" + station.getRoadLine().getName() + ")"));
         });
