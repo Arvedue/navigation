@@ -1,3 +1,5 @@
+import entities.RoadLine;
+import entities.RoadNetwork;
 import entities.Station;
 
 import java.util.*;
@@ -18,7 +20,7 @@ public class BFS {
     }
 
     public List<Station> findShortestPath(HashMap<Station, ArrayList<Station>> adjacencyList,
-                                          Station start, Station destination) {
+                                          Station start, Station destination, RoadNetwork roadNetwork) {
         queue.offer(start);
         visited.put(start, true);
         predecessors.put(start, null);
@@ -53,29 +55,34 @@ public class BFS {
         distance = distances.get(destination);
         Collections.reverse(path);
 
-        controlChangesBetweenLines(path);
+        controlChangesBetweenRoadLines(path, roadNetwork);
 
         return path;
     }
 
-    private void controlChangesBetweenLines(List<Station> path) {
-        if (path.size() == 2 && path.get(1).isCommonStation()) {
-            path.get(1).setChangedDirection(path.get(0).getRoadLine());
-            return;
-        }
+    private void controlChangesBetweenRoadLines(List<Station> path, RoadNetwork roadNetwork) {
+        HashMap<RoadLine, List<Station>> stationsMap = roadNetwork.getStationsMap();
+        List<RoadLine> roadLines = roadNetwork.getLines();
 
-        for (int i = 1; i < path.size() - 1; i++) {
-            Station previousStation = path.get(i - 1);
+        Station previousStation = null;
+        for (int i = 0; i < path.size() - 1; i++) {
+            Station currentStation = path.get(i);
             Station nextStation = path.get(i + 1);
-            Station current = path.get(i);
 
-            if (current.isCommonStation()) {
-                current.setChangedDirection(nextStation.getRoadLine());
+            for (RoadLine roadLine : roadLines) {
+                List<Station> stations = stationsMap.get(roadLine);
+                if (stations.contains(currentStation) && stations.contains(nextStation)) {
+                    currentStation.setRoadLine(roadLine);
+                    nextStation.setRoadLine(roadLine);
 
-                if (!(previousStation.getRoadLine().equals(nextStation.getRoadLine()))) {
-                    current.setDirectionChanged(true);
+                    if (previousStation != null) {
+                        if (!(currentStation.getRoadLine().equals(previousStation.getRoadLine())))
+                            currentStation.setLineChanged(true);
+                    }
                 }
             }
+
+            previousStation = currentStation;
         }
     }
 

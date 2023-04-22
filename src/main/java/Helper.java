@@ -1,5 +1,6 @@
 import entities.RoadNetwork;
 import entities.Station;
+import utils.AdjacencyListGraphRepresentation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,6 @@ public class Helper {
     public Helper () {
         TashkentRoadNetworkBuilder tashkentRoadNetwork = new TashkentRoadNetworkBuilder();
         this.roadNetwork = tashkentRoadNetwork.createRoadNetwork();
-
         this.adjacencyList = AdjacencyListGraphRepresentation.constructGraphRepresentation(this.roadNetwork);
     }
 
@@ -35,7 +35,7 @@ public class Helper {
         Station destination = roadNetwork.searchStationByName(destinationStation);
 
         if (start != null && destination != null) {
-            List<Station> path = bfsAlgorithm.findShortestPath(adjacencyList, start, destination);
+            List<Station> path = bfsAlgorithm.findShortestPath(adjacencyList, start, destination, roadNetwork);
             System.out.println("Distance: " + bfsAlgorithm.getDistance());
 
             displayPath(path);
@@ -47,16 +47,12 @@ public class Helper {
         System.out.println("Navigation from start to destination stations: ");
 
         for (Station s : path) {
-            if (s.isDirectionChanged()) {
-                System.out.println(s.getName() + " (Change to " + s.getChangedDirection().getName() + " Line)");
-                s.setDirectionChanged(false);
+            if (s.isLineChanged()) {
+                System.out.println(s.getName() + " (Change to " + s.getRoadLine().getName() + " Line)");
+                s.setLineChanged(false);
             }
-            else {
-                if (!s.isCommonStation())
-                    System.out.println(s.getName() + " (" + s.getRoadLine().getName() + " Line)");
-                else
-                    System.out.println(s.getName() + " (" + s.getChangedDirection().getName() + " Line)");
-            }
+            else System.out.println(s.getName() + " (" + s.getRoadLine().getName() + " Line)");
+
         }
     }
 }

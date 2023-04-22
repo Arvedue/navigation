@@ -17,7 +17,11 @@ public class TashkentRoadNetworkBuilder {
 
     public RoadNetwork createRoadNetwork() {
         List<RoadLine> roadLines = getRoadLines();
-        return new RoadNetwork("Tashkent", roadLines);
+
+        HashMap<RoadLine, List<Station>> stationsMap = new HashMap<>();
+        roadLines.forEach(roadLine -> stationsMap.put(roadLine, roadLine.getStations()));
+
+        return new RoadNetwork("Tashkent", roadLines, stationsMap);
     }
 
     public List<RoadLine> getRoadLines() {
@@ -30,10 +34,6 @@ public class TashkentRoadNetworkBuilder {
         RoadLine yunusobodRoadLine = new RoadLine("Yunusobod", yunusobodStations);
         RoadLine uzbekistanRoadLine = new RoadLine("Uzbekistan", uzbekistanStations);
         RoadLine chilonzorRoadLine = new RoadLine("Chilonzor", chilonzorStations);
-
-        uzbekistanRoadLine.setRoadLineForStations();
-        chilonzorRoadLine.setRoadLineForStations();
-        yunusobodRoadLine.setRoadLineForStations();
 
         roadLines.add(chilonzorRoadLine);
         roadLines.add(uzbekistanRoadLine);
@@ -49,7 +49,6 @@ public class TashkentRoadNetworkBuilder {
         for (String line : data) {
             if (allStations.containsKey(line)) {
                 stations.add(allStations.get(line));
-                allStations.get(line).setCommonStation(true);
             }
             else {
                 Station station = new Station(line);

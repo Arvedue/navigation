@@ -1,14 +1,25 @@
 package entities;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RoadNetwork {
     private String name;
     private List<RoadLine> roadLines;
+    private HashMap<RoadLine, List<Station>> stationsMap;
 
-    public RoadNetwork(String name, List<RoadLine> roadLines) {
+    public RoadNetwork(String name, List<RoadLine> roadLines, HashMap<RoadLine, List<Station>> stationsMap) {
         this.name = name;
         this.roadLines = roadLines;
+        this.stationsMap = stationsMap;
+    }
+
+    public HashMap<RoadLine, List<Station>> getStationsMap() {
+        return stationsMap;
+    }
+
+    public void setStationsMap(HashMap<RoadLine, List<Station>> stationsMap) {
+        this.stationsMap = stationsMap;
     }
 
     public String getName() {
@@ -45,8 +56,7 @@ public class RoadNetwork {
 
             System.out.println("Stations");
             System.out.println("----------------------------");
-            line.getStations().forEach(station -> System.out.println(station.getName() +
-                    "\t(" + station.getRoadLine().getName() + ")"));
+            line.getStations().forEach(station -> System.out.println(station.getName()));
         });
 
     }

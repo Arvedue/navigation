@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +8,7 @@ public class Main {
         boolean end = true;
         while (end) {
             helper.getInputStations();
-            System.out.println("\nContinue? : ");
+            System.out.println("\nContinue? (yes / no): ");
             String ans = scanner.nextLine();
             if (ans.equalsIgnoreCase("NO")) end = false;
         }

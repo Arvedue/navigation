@@ -35,9 +35,4 @@ public class RoadLine {
 
         return null;
     }
-
-    public void setRoadLineForStations() {
-        for (Station station : stations)
-            station.setRoadLine(this);
-    }
 }

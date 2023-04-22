@@ -3,40 +3,20 @@ package entities;
 public class Station {
     private String name;
     private RoadLine roadLine;
-    private RoadLine changedDirection;
-    private boolean isCommonStation;
-    private boolean isDirectionChanged;
+    private boolean isLineChanged;
 
     public Station(String name) {
         this.name = name;
         this.roadLine = null;
-        this.changedDirection = null;
-        isCommonStation = false;
-        isDirectionChanged = false;
+        this.isLineChanged = false;
     }
 
-    public RoadLine getChangedDirection() {
-        return changedDirection;
+    public boolean isLineChanged() {
+        return isLineChanged;
     }
 
-    public void setChangedDirection(RoadLine changedDirection) {
-        this.changedDirection = changedDirection;
-    }
-
-    public boolean isDirectionChanged() {
-        return isDirectionChanged;
-    }
-
-    public void setDirectionChanged(boolean directionChanged) {
-        isDirectionChanged = directionChanged;
-    }
-
-    public boolean isCommonStation() {
-        return isCommonStation;
-    }
-
-    public void setCommonStation(boolean commonStation) {
-        isCommonStation = commonStation;
+    public void setLineChanged(boolean lineChanged) {
+        isLineChanged = lineChanged;
     }
 
     public RoadLine getRoadLine() {
