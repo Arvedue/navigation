@@ -1,3 +1,7 @@
+import entities.RoadLine;
+import entities.RoadNetwork;
+import entities.Station;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +14,7 @@ public class AdjacencyListGraphRepresentation {
     public static HashMap<Station, ArrayList<Station>> constructGraphRepresentation(RoadNetwork roadNetwork) {
         adjacencyList = new HashMap<>();
         List<RoadLine> roadLines = roadNetwork.getLines();
+
         for (RoadLine roadLine : roadLines) {
             List<Station> stations = roadLine.getStations();
             for (int i = 0; i < stations.size() - 1; i++) {

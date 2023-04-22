@@ -1,3 +1,7 @@
+import entities.RoadLine;
+import entities.RoadNetwork;
+import entities.Station;
+import utils.Reader;
 import utils.TextFileReader;
 
 import java.util.ArrayList;
@@ -5,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TashkentRoadNetwork {
-    private final TextFileReader textFileReader;
+    private final Reader textFileReader;
     private static int id;
 
     public TashkentRoadNetwork() {

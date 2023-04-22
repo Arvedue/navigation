@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.List;
 
 public class RoadNetwork {
@@ -27,7 +29,7 @@ public class RoadNetwork {
 
     public Station searchStationByName(String stationName) {
         for (RoadLine line : roadLines) {
-            Station station = line.getStationByName(stationName);
+            Station station = line.searchStationByName(stationName);
             if (station != null) return station;
         }
 
@@ -42,7 +44,8 @@ public class RoadNetwork {
             System.out.println("\nLine name: " + line.getName());
 
             System.out.println("Stations");
-            line.getStations().forEach(station -> System.out.println(station.toString()));
+            line.getStations().forEach(station -> System.out.println(station.getName() +
+                    "\t(" + station.getRoadLine().getName() + ")"));
         });
 
     }

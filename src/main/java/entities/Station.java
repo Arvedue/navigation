@@ -1,9 +1,11 @@
+package entities;
+
 import java.util.Comparator;
 
 public class Station implements Comparator<Station> {
     private int id;
     private String name;
-    private RoadLine roadLine;
+    private RoadLine roadLines;
     private int cost = 1;
 
     public Station(){};
@@ -27,11 +29,11 @@ public class Station implements Comparator<Station> {
     }
 
     public RoadLine getRoadLine() {
-        return roadLine;
+        return roadLines;
     }
 
     public void setRoadLine(RoadLine roadLine) {
-        this.roadLine = roadLine;
+        this.roadLines = roadLine;
     }
 
     public String getName() {

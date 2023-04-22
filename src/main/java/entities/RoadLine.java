@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.List;
 
 public class RoadLine {
@@ -25,7 +27,7 @@ public class RoadLine {
         this.stations = stations;
     }
 
-    public Station getStationByName(String stationName) {
+    public Station searchStationByName(String stationName) {
         for (Station station : stations) {
             if (station.getName().equals(stationName))
                 return station;
