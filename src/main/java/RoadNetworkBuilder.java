@@ -3,41 +3,45 @@ import entities.RoadNetwork;
 import entities.Station;
 import utils.Reader;
 import utils.TextFileReader;
+import utils.TextFilesList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class TashkentRoadNetworkBuilder {
+public class RoadNetworkBuilder {
     private final Reader textFileReader;
 
-    public TashkentRoadNetworkBuilder() {
+    public RoadNetworkBuilder() {
         textFileReader = new TextFileReader();
     }
 
-    public RoadNetwork createRoadNetwork() {
+    public RoadNetwork createRoadNetwork(String roadNetworkName) {
         List<RoadLine> roadLines = getRoadLines();
 
         HashMap<RoadLine, List<Station>> stationsMap = new HashMap<>();
         roadLines.forEach(roadLine -> stationsMap.put(roadLine, roadLine.getStations()));
 
-        return new RoadNetwork("Tashkent", roadLines, stationsMap);
+        return new RoadNetwork(roadNetworkName, roadLines, stationsMap);
     }
 
     public List<RoadLine> getRoadLines() {
         List<RoadLine> roadLines = new ArrayList<>();
         HashMap<String, Station> allStations = new HashMap<>();
-        List<Station> chilonzorStations = getRoadLineStations("ChilonzorLine.txt", allStations);
-        List<Station> uzbekistanStations = getRoadLineStations("UzbekistanLine.txt", allStations);
-        List<Station> yunusobodStations = getRoadLineStations("YunusobodLine.txt", allStations);
 
-        RoadLine yunusobodRoadLine = new RoadLine("Yunusobod", yunusobodStations);
-        RoadLine uzbekistanRoadLine = new RoadLine("Uzbekistan", uzbekistanStations);
-        RoadLine chilonzorRoadLine = new RoadLine("Chilonzor", chilonzorStations);
+        TextFilesList textFilesList = new TextFilesList();
+        HashMap<String, String> textFiles = textFilesList.getTextFilesList();
+        for (Map.Entry<String,String> entry : textFiles.entrySet()) {
+            StringBuilder roadLineName = new StringBuilder();
+            for (char c : entry.getKey().toCharArray()) {
+                if (c != '.') roadLineName.append(c);
+                else break;
+            }
 
-        roadLines.add(chilonzorRoadLine);
-        roadLines.add(uzbekistanRoadLine);
-        roadLines.add(yunusobodRoadLine);
+            List<Station> stations = getRoadLineStations(entry.getValue(), allStations);
+            roadLines.add(new RoadLine(roadLineName.toString(), stations));
+        }
 
         return roadLines;
     }
