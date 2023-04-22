@@ -17,14 +17,15 @@ public class Main {
         HashMap<Station, ArrayList<Station>> adjacencyList = AdjacencyListGraphRepresentation.constructGraphRepresentation(tashkent);
         AdjacencyListGraphRepresentation.displayAdjacencyListGraphRepresentation();
 
-        DijkstraAlgorithm algorithm = new DijkstraAlgorithm();
+        BFS bfsAlgorithm = new BFS();
         Station start = tashkent.searchStationByName("Toshkent");
         Station destination = tashkent.searchStationByName("Pushkin");
 
         System.out.println();
         if (start != null && destination != null) {
-            List<Station> path = algorithm.findShortestPath(adjacencyList, start, destination);
+            List<Station> path = bfsAlgorithm.findShortestPath(adjacencyList, start, destination);
             System.out.println("Navigation from start to destination stations: ");
+            System.out.println("Distance: " + bfsAlgorithm.getDistance());
             path.forEach(s -> System.out.println(s.getName() + " (" + s.getRoadLine().getName() + ")"));
         }
         else System.out.println("NullPointerException");
