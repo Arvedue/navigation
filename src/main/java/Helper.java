@@ -1,49 +1,60 @@
 import entities.RoadNetwork;
 import entities.Station;
-import utils.AdjacencyListGraphRepresentation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Helper {
+    private final Scanner scanner;
 
-    private final RoadNetwork roadNetwork;
-    private final HashMap<Station, ArrayList<Station>> adjacencyList;
-
-    public Helper () {
-        RoadNetworkBuilder tashkentRoadNetwork = new RoadNetworkBuilder();
-        this.roadNetwork = tashkentRoadNetwork.createRoadNetwork("Tashkent");
-        this.adjacencyList = AdjacencyListGraphRepresentation.constructGraphRepresentation(this.roadNetwork);
+    public Helper() {
+        this.scanner = new Scanner(System.in);
     }
 
-    public void getInputStations() {
-        Scanner scanner = new Scanner(System.in);
+    public void startProgram() {
+        DataPreparation dataPreparation = new DataPreparation();
+
+        boolean end = true;
+        while (end) {
+            getInputStations(dataPreparation.getRoadNetwork(), dataPreparation.getAdjacencyList());
+            System.out.println("\nContinue? (yes / no): ");
+            String ans = scanner.nextLine();
+            if (ans.equalsIgnoreCase("NO")) end = false;
+        }
+    }
+
+    private void getInputStations(RoadNetwork roadNetwork, HashMap<Station, ArrayList<Station>> adjacencyList) {
+        if (roadNetwork == null || adjacencyList == null) return;
+
         System.out.println("Please enter start station: ");
         String startStation = scanner.nextLine();
         System.out.println("Please enter destination station: ");
         String destinationStation = scanner.nextLine();
 
-        startBsaAlgorithm(startStation, destinationStation);
+        startBfsAlgorithm(roadNetwork, adjacencyList, startStation, destinationStation);
     }
 
-    public void startBsaAlgorithm(String startStation, String destinationStation) {
+
+    private void startBfsAlgorithm(RoadNetwork roadNetwork, HashMap<Station, ArrayList<Station>> adjacencyList,
+                                  String startStation, String destinationStation) {
+
+        if (startStation == null || destinationStation == null) return;
+
         BFS bfsAlgorithm = new BFS();
 
         Station start = roadNetwork.searchStationByName(startStation);
         Station destination = roadNetwork.searchStationByName(destinationStation);
 
-        if (start != null && destination != null) {
-            List<Station> path = bfsAlgorithm.findShortestPath(adjacencyList, start, destination, roadNetwork);
+        List<Station> path = bfsAlgorithm.findShortestPath(adjacencyList, roadNetwork, start, destination);
+        if (path != null) {
             System.out.println("\nDistance: " + bfsAlgorithm.getDistance());
-
             displayPath(path);
         }
-        else System.out.println("Start or destination station is not found!");
+        else System.out.println("Path not found!");
     }
 
     private void displayPath(List<Station> path) {
+        if (path == null) return;
+
         System.out.println("Navigation from start to destination stations: ");
 
         System.out.println("----------------------------------------------------------------");
@@ -56,4 +67,5 @@ public class Helper {
         }
         System.out.println("----------------------------------------------------------------");
     }
+
 }

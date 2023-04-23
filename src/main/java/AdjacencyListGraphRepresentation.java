@@ -1,17 +1,14 @@
-package utils;
-
 import entities.RoadLine;
 import entities.RoadNetwork;
 import entities.Station;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AdjacencyListGraphRepresentation {
 
     public static HashMap<Station, ArrayList<Station>> constructGraphRepresentation(RoadNetwork roadNetwork) {
+        if (roadNetwork == null) return null;
+
         HashMap<Station, ArrayList<Station>> adjacencyList = new HashMap<>();
         List<RoadLine> roadLines = roadNetwork.getLines();
 
@@ -35,6 +32,8 @@ public class AdjacencyListGraphRepresentation {
     }
 
     public static void displayAdjacencyListGraphRepresentation(HashMap<Station, ArrayList<Station>> adjacencyList) {
+        if (adjacencyList == null) return;
+
         System.out.println("AdjacencyList Representation of a Graph");
 
         int i = 0;

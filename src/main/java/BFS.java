@@ -20,7 +20,13 @@ public class BFS {
     }
 
     public List<Station> findShortestPath(HashMap<Station, ArrayList<Station>> adjacencyList,
-                                          Station start, Station destination, RoadNetwork roadNetwork) {
+                                          RoadNetwork roadNetwork, Station start, Station destination) {
+        if (start == null || destination == null)
+            return null;
+
+        if (roadNetwork.notContainsStation(start) || roadNetwork.notContainsStation(destination))
+            return null;
+
         queue.offer(start);
         visited.put(start, true);
         predecessors.put(start, null);
@@ -42,8 +48,7 @@ public class BFS {
             }
         }
 
-        if (!visited.containsKey(destination))
-            return null;
+        if (!visited.containsKey(destination)) return null;
 
         List<Station> path = new ArrayList<>();
         Station currentStation = destination;

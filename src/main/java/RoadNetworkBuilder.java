@@ -3,7 +3,7 @@ import entities.RoadNetwork;
 import entities.Station;
 import utils.Reader;
 import utils.TextFileReader;
-import utils.TextFilesList;
+import utils.TextFilesListReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RoadNetworkBuilder {
-    private final Reader textFileReader;
-
-    public RoadNetworkBuilder() {
-        textFileReader = new TextFileReader();
-    }
 
     public RoadNetwork createRoadNetwork(String roadNetworkName) {
         List<RoadLine> roadLines = getRoadLines();
@@ -30,8 +25,9 @@ public class RoadNetworkBuilder {
         List<RoadLine> roadLines = new ArrayList<>();
         HashMap<String, Station> allStations = new HashMap<>();
 
-        TextFilesList textFilesList = new TextFilesList();
+        TextFilesListReader textFilesList = new TextFilesListReader();
         HashMap<String, String> textFiles = textFilesList.getTextFilesList();
+
         for (Map.Entry<String,String> entry : textFiles.entrySet()) {
             StringBuilder roadLineName = new StringBuilder();
             for (char c : entry.getKey().toCharArray()) {
@@ -47,6 +43,9 @@ public class RoadNetworkBuilder {
     }
 
     public List<Station> getRoadLineStations(String pathname, HashMap<String, Station> allStations) {
+        if (pathname == null || allStations == null) return null;
+
+        Reader textFileReader = new TextFileReader();
         List<Station> stations = new ArrayList<>();
         List<String> data = textFileReader.read(pathname);
 

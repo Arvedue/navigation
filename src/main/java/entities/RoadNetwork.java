@@ -8,6 +8,8 @@ public class RoadNetwork {
     private List<RoadLine> roadLines;
     private HashMap<RoadLine, List<Station>> stationsMap;
 
+    public RoadNetwork(){}
+
     public RoadNetwork(String name, List<RoadLine> roadLines, HashMap<RoadLine, List<Station>> stationsMap) {
         this.name = name;
         this.roadLines = roadLines;
@@ -39,12 +41,26 @@ public class RoadNetwork {
     }
 
     public Station searchStationByName(String stationName) {
+        if (name == null) return null;
+
         for (RoadLine line : roadLines) {
             Station station = line.searchStationByName(stationName);
             if (station != null) return station;
         }
 
         return null;
+    }
+
+    public boolean notContainsStation(Station station) {
+        if (station == null) return true;
+
+        for (RoadLine line : roadLines) {
+            if (line.getStations().contains(station)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void displayRoadNetworkInfo() {
