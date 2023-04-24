@@ -8,8 +8,6 @@ public class RoadNetwork {
     private List<RoadLine> roadLines;
     private HashMap<RoadLine, List<Station>> stationsMap;
 
-    public RoadNetwork(){}
-
     public RoadNetwork(String name, List<RoadLine> roadLines, HashMap<RoadLine, List<Station>> stationsMap) {
         this.name = name;
         this.roadLines = roadLines;
@@ -41,7 +39,7 @@ public class RoadNetwork {
     }
 
     public Station searchStationByName(String stationName) {
-        if (name == null) return null;
+        if (stationName == null) return null;
 
         for (RoadLine line : roadLines) {
             Station station = line.searchStationByName(stationName);

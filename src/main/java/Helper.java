@@ -16,19 +16,21 @@ public class Helper {
         boolean end = true;
         while (end) {
             getInputStations(dataPreparation.getRoadNetwork(), dataPreparation.getAdjacencyList());
-            System.out.println("\nContinue? (yes / no): ");
+            System.out.println("\nWeiterlaufen? (Ja / Nein): ");
             String ans = scanner.nextLine();
-            if (ans.equalsIgnoreCase("NO")) end = false;
+            if (ans.equalsIgnoreCase("NEIN")) end = false;
         }
     }
 
     private void getInputStations(RoadNetwork roadNetwork, HashMap<Station, ArrayList<Station>> adjacencyList) {
         if (roadNetwork == null || adjacencyList == null) return;
 
-        System.out.println("Please enter start station: ");
+        System.out.println("\nStart: ");
         String startStation = scanner.nextLine();
-        System.out.println("Please enter destination station: ");
+        System.out.println("Ziel: ");
         String destinationStation = scanner.nextLine();
+
+//        roadNetwork.displayRoadNetworkInfo();
 
         startBfsAlgorithm(roadNetwork, adjacencyList, startStation, destinationStation);
     }
@@ -36,9 +38,6 @@ public class Helper {
 
     private void startBfsAlgorithm(RoadNetwork roadNetwork, HashMap<Station, ArrayList<Station>> adjacencyList,
                                   String startStation, String destinationStation) {
-
-        if (startStation == null || destinationStation == null) return;
-
         BFS bfsAlgorithm = new BFS();
 
         Station start = roadNetwork.searchStationByName(startStation);
@@ -46,21 +45,21 @@ public class Helper {
 
         List<Station> path = bfsAlgorithm.findShortestPath(adjacencyList, roadNetwork, start, destination);
         if (path != null) {
-            System.out.println("\nDistance: " + bfsAlgorithm.getDistance());
+            System.out.println("\nEntfernung: " + bfsAlgorithm.getDistance());
             displayPath(path);
         }
-        else System.out.println("Path not found!");
+        else System.out.println("Pfad nicht gefunden!");
     }
 
     private void displayPath(List<Station> path) {
         if (path == null) return;
 
-        System.out.println("Navigation from start to destination stations: ");
+        System.out.println("Navigation von Start- zu Zielstationen: ");
 
         System.out.println("----------------------------------------------------------------");
         for (Station s : path) {
             if (s.isLineChanged()) {
-                System.out.println(s.getName() + " (Change to " + s.getRoadLine().getName() + ")");
+                System.out.println(s.getName() + " (Wechseln zu " + s.getRoadLine().getName() + ")");
                 s.setLineChanged(false);
             }
             else System.out.println(s.getName() + " (" + s.getRoadLine().getName() + ")");

@@ -1,5 +1,6 @@
 package entities;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RoadNetworkTest {
 
-    private RoadNetwork roadNetwork;
-    private List<RoadLine> roadLines;
-    private Station station1;
-    private HashMap<RoadLine, List<Station>> stationsMap;
+    private static RoadNetwork roadNetwork;
+    private static List<RoadLine> roadLines;
+    private static Station station1;
+    private static HashMap<RoadLine, List<Station>> stationsMap;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
         roadLines = new ArrayList<>();
         List<Station> stations = new ArrayList<>();
         station1 = new Station("Station1");
@@ -28,6 +29,27 @@ class RoadNetworkTest {
         stationsMap.put(roadLine, stations);
 
         roadNetwork = new RoadNetwork("Budapest", roadLines, stationsMap);
+    }
+
+    @Test
+    void givenNullStation_whenNotContainsStation_thenReturnNull() {
+        boolean notContainsStation = roadNetwork.notContainsStation(null);
+
+        assertTrue(notContainsStation);
+    }
+
+    @Test
+    void givenExistedStation_whenNotContainsStation_thenReturnFalse() {
+        boolean notContainsStation = roadNetwork.notContainsStation(station1);
+
+        assertFalse(notContainsStation);
+    }
+
+    @Test
+    void givenNotExistedStation_whenNotContainsStation_thenReturnTrue() {
+        boolean notContainsStation = roadNetwork.notContainsStation(new Station("Station2"));
+
+        assertTrue(notContainsStation);
     }
 
     @Test
@@ -81,27 +103,6 @@ class RoadNetworkTest {
         roadNetwork.setStationsMap(new HashMap<>());
 
         assertNotEquals(stationsMap, roadNetwork.getStationsMap());
-    }
-
-    @Test
-    void givenNullStation_whenNotContainsStation_thenReturnNull() {
-        boolean notContainsStation = roadNetwork.notContainsStation(null);
-
-        assertTrue(notContainsStation);
-    }
-
-    @Test
-    void givenExistedStation_whenNotContainsStation_thenReturnFalse() {
-        boolean notContainsStation = roadNetwork.notContainsStation(station1);
-
-        assertFalse(notContainsStation);
-    }
-
-    @Test
-    void givenNotExistedStation_whenNotContainsStation_thenReturnTrue() {
-        boolean notContainsStation = roadNetwork.notContainsStation(new Station("Station2"));
-
-        assertTrue(notContainsStation);
     }
 
 }

@@ -69,6 +69,26 @@ class BFSTest {
     }
 
     @Test
+    @DisplayName("When start:Toshkent, destination: Toshkent")
+    void givenStartToshkent_destinationToshkent_whenFindShortestPath_thenReturnPath() {
+        BFS algorithm = new BFS();
+        startStation = roadNetwork.searchStationByName("Toshkent");
+        path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, startStation);
+
+        assertEquals(roadNetwork.searchStationByName("Toshkent"), path.get(0));
+    }
+
+    @Test
+    @DisplayName("When start:Ming Urik - Oybek, destination: Ming Urik - Oybek")
+    void givenStartMingUrikOybek_destinationMingUrikOybek_whenFindShortestPath_thenReturnPath() {
+        BFS algorithm = new BFS();
+        startStation = roadNetwork.searchStationByName("Ming Urik - Oybek");
+        path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, startStation);
+
+        assertEquals(roadNetwork.searchStationByName("Ming Urik - Oybek"), path.get(0));
+    }
+
+    @Test
     @DisplayName("When start:Toshkent, destination:Pushkin")
     void givenStartToshkent_DestinationPushkin_whenFindShortestPath_thenReturnPath() {
         BFS algorithm = new BFS();

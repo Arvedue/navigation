@@ -37,14 +37,6 @@ class RoadLineTest {
     }
 
     @Test
-    void givenRoadLineName_whenSetName_thenChangeName() {
-        roadLine.setName("New York");
-
-        assertNotEquals("London", roadLine.getName());
-        assertEquals("New York", roadLine.getName());
-    }
-
-    @Test
     void givenStations_whenSetStations_thenSetStationsList() {
         List<Station> stations1 = new ArrayList<>();
         stations1.add(new Station("Station2"));
@@ -52,6 +44,14 @@ class RoadLineTest {
 
         List<Station> roadLineStations = roadLine.getStations();
         assertNotEquals(stations.get(0), roadLineStations.get(0));
+    }
+
+    @Test
+    void givenRoadLineName_whenSetName_thenChangeName() {
+        roadLine.setName("New York");
+
+        assertNotEquals("London", roadLine.getName());
+        assertEquals("New York", roadLine.getName());
     }
 
 }
