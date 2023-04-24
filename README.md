@@ -1,7 +1,13 @@
-# Das Programm zur navigation 
-![alt text](images/roadnetwork.png?raw=true)
+# Navigation
+### Das Programm zur Navigation in einem öffentlichen Verkehrsnetz.
 
-![alt text](images/classDiagram.png?raw=true)
+## Als Beispiel gilt das U-Bahn-Netz von Taschkentnetz.
+
+![alt text](images/Taschkentnetz.png?raw=true)
+
+## UML Class Diagram
+
+![alt text](images/classDiagramUML.png?raw=true)
 
 ## Beschreibung des Algorithmus
 
