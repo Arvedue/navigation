@@ -43,7 +43,7 @@ public class BFS {
         // Hinzufügen der Startstation zur Queue
         queue.offer(start);
 
-        // Markieren Sie den Startstation als besucht in der HashMap
+        // Markieren Sie die Startstation als besucht in der HashMap
         visited.put(start, true);
 
         // Hinzufügen der vorherigen Station für die Startstation als Null

@@ -3,6 +3,7 @@ import entities.Station;
 
 import java.util.*;
 
+// Klasse, die beim Start des Programms hilft
 public class Helper {
     private final Scanner scanner;
 
@@ -59,7 +60,7 @@ public class Helper {
         System.out.println("----------------------------------------------------------------");
         for (Station s : path) {
             if (s.isLineChanged()) {
-                System.out.println(s.getName() + " (Wechseln zu " + s.getRoadLine().getName() + ")");
+                System.out.println(s.getName() + " (Wechseln zur " + s.getRoadLine().getName() + ")");
                 s.setLineChanged(false);
             }
             else System.out.println(s.getName() + " (" + s.getRoadLine().getName() + ")");

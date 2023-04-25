@@ -62,11 +62,11 @@ public class RoadNetwork {
     }
 
     public void displayRoadNetworkInfo() {
-        System.out.println("Road Network name: " + this.getName());
+        System.out.println("Name des Verkehrsnetzes : " + this.getName());
 
-        System.out.println("Lines");
+        System.out.println("Linien");
         this.getLines().forEach(line -> {
-            System.out.println("\nLine name: " + line.getName());
+            System.out.println("\nName der Linie: " + line.getName());
 
             System.out.println("Stations");
             System.out.println("------------------------------------");

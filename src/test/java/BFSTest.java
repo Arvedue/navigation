@@ -75,6 +75,8 @@ class BFSTest {
         startStation = roadNetwork.searchStationByName("Toshkent");
         path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, startStation);
 
+        assertEquals(0, algorithm.getDistance());
+        assertEquals(1, path.size());
         assertEquals(roadNetwork.searchStationByName("Toshkent"), path.get(0));
     }
 
@@ -85,7 +87,33 @@ class BFSTest {
         startStation = roadNetwork.searchStationByName("Ming Urik - Oybek");
         path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, startStation);
 
+        assertEquals(0, algorithm.getDistance());
+        assertEquals(1, path.size());
         assertEquals(roadNetwork.searchStationByName("Ming Urik - Oybek"), path.get(0));
+    }
+
+    @Test
+    @DisplayName("When start:Paxtakor - Alisher Navoiy, destination: Paxtakor - Alisher Navoiy")
+    void givenStartPaxtakor_destinationPaxtakor_whenFindShortestPath_thenReturnPath() {
+        BFS algorithm = new BFS();
+        startStation = roadNetwork.searchStationByName("Paxtakor - Alisher Navoiy");
+        path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, startStation);
+
+        assertEquals(0, algorithm.getDistance());
+        assertEquals(1, path.size());
+        assertEquals(roadNetwork.searchStationByName("Paxtakor - Alisher Navoiy"), path.get(0));
+    }
+
+    @Test
+    @DisplayName("When start:Amir Temur Xiyoboni - Yunus Rajabiy, destination: Amir Temur Xiyoboni - Yunus Rajabiy")
+    void givenStartAmirTemur_destinationAmirTemur_whenFindShortestPath_thenReturnPath() {
+        BFS algorithm = new BFS();
+        startStation = roadNetwork.searchStationByName("Amir Temur Xiyoboni - Yunus Rajabiy");
+        path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, startStation);
+
+        assertEquals(0, algorithm.getDistance());
+        assertEquals(1, path.size());
+        assertEquals(roadNetwork.searchStationByName("Amir Temur Xiyoboni - Yunus Rajabiy"), path.get(0));
     }
 
     @Test
@@ -249,5 +277,44 @@ class BFSTest {
         assertEquals(roadNetwork.searchStationByName("Ming Urik - Oybek"), path.get(2));
         assertEquals(roadNetwork.searchStationByName("Kosmonavtlar"), path.get(3));
     }
+
+    @Test
+    @DisplayName("When start:Bodomzor, destination:Chorsu")
+    void givenStartBodomzor_DestinationChorsu_whenFindShortestPath_thenReturnPath() {
+        BFS algorithm = new BFS();
+        startStation = roadNetwork.searchStationByName("Bodomzor");
+        destinationStation = roadNetwork.searchStationByName("Chorsu");
+        path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, destinationStation);
+
+        assertEquals(7, algorithm.getDistance());
+        assertEquals(8, path.size());
+        assertEquals(roadNetwork.searchStationByName("Bodomzor"), path.get(0));
+        assertEquals(roadNetwork.searchStationByName("Minor"), path.get(1));
+        assertEquals(roadNetwork.searchStationByName("Abdulla Qodirii"), path.get(2));
+        assertEquals(roadNetwork.searchStationByName("Amir Temur Xiyoboni - Yunus Rajabiy"), path.get(3));
+        assertEquals(roadNetwork.searchStationByName("Mustaqilliq Maidoni"), path.get(4));
+        assertEquals(roadNetwork.searchStationByName("Paxtakor - Alisher Navoiy"), path.get(5));
+        assertEquals(roadNetwork.searchStationByName("Gafur Gulom"), path.get(6));
+        assertEquals(roadNetwork.searchStationByName("Chorsu"), path.get(7));
+    }
+
+    @Test
+    @DisplayName("When start:Pushkin, destination:Uzbekistan")
+    void givenStartPushkin_DestinationUzbekistan_whenFindShortestPath_thenReturnPath() {
+        BFS algorithm = new BFS();
+        startStation = roadNetwork.searchStationByName("Pushkin");
+        destinationStation = roadNetwork.searchStationByName("Uzbekistan");
+        path = algorithm.findShortestPath(adjacencyList, roadNetwork, startStation, destinationStation);
+
+        assertEquals(5, algorithm.getDistance());
+        assertEquals(6, path.size());
+        assertEquals(roadNetwork.searchStationByName("Pushkin"), path.get(0));
+        assertEquals(roadNetwork.searchStationByName("Hamid Olimjon"), path.get(1));
+        assertEquals(roadNetwork.searchStationByName("Amir Temur Xiyoboni - Yunus Rajabiy"), path.get(2));
+        assertEquals(roadNetwork.searchStationByName("Mustaqilliq Maidoni"), path.get(3));
+        assertEquals(roadNetwork.searchStationByName("Paxtakor - Alisher Navoiy"), path.get(4));
+        assertEquals(roadNetwork.searchStationByName("Uzbekistan"), path.get(5));
+    }
+
 
 }
