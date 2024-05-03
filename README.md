@@ -5,6 +5,9 @@ Das Programm zur Navigation in einem öffentlichen Verkehrsnetz.
 
 ![alt text](images/Taschkentnetz.png?raw=true)
 
+### Erklärung
+[Video-Erklärung](https://drive.google.com/file/d/1lylmTlZYPpRHUXeV1kHoukrVarCHAO_k/view?usp=sharing)
+
 ### UML Class Diagram
 
 ![alt text](images/classDiagramUML.png?raw=true)
